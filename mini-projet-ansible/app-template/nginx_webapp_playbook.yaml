@@ -1,0 +1,14 @@
+---
+# YAML documents begin with the document separator ---
+- hosts: prod
+  become: true
+  roles:
+    # Le rôle Nginx doit être exécuté en premier
+    - role: nginx
+    
+    # Démarrer la deuxième instance de webapp
+    - role: <FIX IT>
+      vars:
+        container_name: "webapp1"
+        app_port: 8082
+        target_dir: "{%- if ansible_distribution == 'CentOS' -%}/usr/share/nginx/html{%- elif ansible_distribution == 'Ubuntu' -%}/var/www/html{%- endif %}"

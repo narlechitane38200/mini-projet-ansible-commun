@@ -1,0 +1,6 @@
+---
+ansible_ssh_extra_args: '-o StrictHostKeyChecking=no'
+ansible_python_interpreter: "/usr/bin/python3"
+ansible_user: <FIX IT> 
+ansible_password: <FIX IT>
+ansible_sudo_pass: <FIX IT>

@@ -1,0 +1,21 @@
+cat <<EOF > .gitignore
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+
+# Ansible
+*.retry
+
+# Terraform
+.terraform/
+*.tfstate*
+.terraform.lock.hcl
+
+# Docker
+*.log
+
+# OS
+.DS_Store
+EOF
