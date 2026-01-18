@@ -29,9 +29,9 @@
       path: "{{ webapp_dir }}"
     source: build
 
-- name: Run contenair webapp
+- name: Run contenair webapp1
   docker_container:
-    name: webapp
+    name: webapp1
     image: webapp-image
     state: started
     restart_policy: always
