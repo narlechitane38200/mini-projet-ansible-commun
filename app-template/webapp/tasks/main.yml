@@ -20,7 +20,7 @@
 - name: Generate index.html
   ansible.builtin.template:
     src: index.html.j2
-    dest: "{{ webapp_dir }}/index.html"
+    dest: "{{ webapp_dir }}/playbook_stacker/index.html"
     mode: '0644'
 
 - name: Generate Dockerfile
