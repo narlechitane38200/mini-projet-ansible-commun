@@ -1,9 +1,4 @@
 ---
-- name: Create a custom Docker network
-  docker_network:
-    name: custom_net
-    driver: bridge
-
 - name: Create application directory
   file:
     path: "{{ webapp_dir }}"
@@ -22,11 +17,26 @@
     dest: "{{ webapp_dir }}"
     remote_src: yes
 
+- name: Generate index.html
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: "{{ webapp_dir }}/index.html"
+    mode: '0644'
+
+- name: Generate Dockerfile
+  ansible.builtin.copy:
+    dest: "{{ webapp_dir }}/playbook_stacker/Dockerfile"
+    mode: '0644'
+    content: |
+      FROM nginx:alpine
+      COPY index.html /usr/share/nginx/html/index.html
+      EXPOSE 80
+
 - name: Build docker webapp image
   docker_image:
     name: webapp-image
     build:
-      path: "{{ webapp_dir }}"
+      path: "{{ webapp_dir }}/playbook_stacker"
     source: build
 
 - name: Run contenair webapp1
@@ -35,7 +45,5 @@
     image: webapp-image
     state: started
     restart_policy: always
-    exposed_ports:
-      - "8080"
     networks:
       - name: custom_net
