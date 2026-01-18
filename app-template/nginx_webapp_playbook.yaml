@@ -7,7 +7,7 @@
     - role: nginx
     
     # Démarrer la deuxième instance de webapp
-    - role: <FIX IT>
+    - role: webapp
       vars:
         container_name: "webapp1"
         app_port: 8082

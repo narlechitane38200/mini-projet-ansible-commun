@@ -1,13 +1,41 @@
 ---
----
-- hosts: prod
-  become: true
-  vars:
-   system_user: admin
-  vars_files:
-   - files/secrets/credentials.vault
-  pre_tasks:
-   - name: create www-data
-     user: name=www-data state=present
-  roles:
-   - { role: ansible-role-containerized-wordpress }
+- name: Create a custom Docker network
+  docker_network:
+    name: custom_net
+    driver: bridge
+
+- name: Create application directory
+  file:
+    path: "{{ webapp_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Copier le fichier playbook_stacker.zip
+  copy:
+    src: playbook_stacker.zip
+    dest: "{{ webapp_dir }}/playbook_stacker.zip"
+    mode: '0644'
+
+- name: Unarchive application
+  ansible.builtin.unarchive:
+    src: "{{ webapp_dir }}/playbook_stacker.zip"
+    dest: "{{ webapp_dir }}"
+    remote_src: yes
+
+- name: Build docker webapp image
+  docker_image:
+    name: webapp-image
+    build:
+      path: "{{ webapp_dir }}"
+    source: build
+
+- name: Run contenair webapp
+  docker_container:
+    name: webapp
+    image: webapp-image
+    state: started
+    restart_policy: always
+    exposed_ports:
+      - "8080"
+    networks:
+      - name: custom_net
