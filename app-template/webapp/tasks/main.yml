@@ -5,14 +5,14 @@
     state: directory
     mode: '0755'
 
-- name: Copier le fichier playbook_stacker.zip
+- name: Copy file playbook_stacker.zip
   copy:
     src: playbook_stacker.zip
     dest: "{{ webapp_dir }}/playbook_stacker.zip"
     mode: '0644'
 
 - name: Unarchive application
-  ansible.builtin.unarchive:
+  unarchive:
     src: "{{ webapp_dir }}/playbook_stacker.zip"
     dest: "{{ webapp_dir }}"
     remote_src: yes
@@ -32,3 +32,10 @@
     restart_policy: always
     networks:
       - name: custom_net
+
+- name: Restart nginx only if webapp was created
+  docker_container:
+    name: nginx
+    state: started
+    restart: true
+  when: webapp_container.changed
