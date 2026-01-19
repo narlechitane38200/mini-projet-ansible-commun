@@ -32,6 +32,7 @@
     restart_policy: always
     networks:
       - name: custom_net
+  register: webapp_container
 
 - name: Restart nginx only if webapp was created
   docker_container:
