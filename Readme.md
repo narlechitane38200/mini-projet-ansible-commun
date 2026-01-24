@@ -24,7 +24,12 @@ Ensuite de préciser le user ansible dans le fichier **group_vars/all.yml**:
 Les autres paramètres des différents fichiers ainsi que le playbook n'ont pas a être modifié.
 
 
+
+
+
 #### Lancement du playbook effectué avec succès:
+
+
 
 ```bash
 
@@ -67,11 +72,19 @@ client1                    : ok=8    changed=1    unreachable=0    failed=0    s
 ```
 
 
+
+
+
 #### Test URL de l'application OK
+
+
+
 
 <p align="center">
   <img src="assets/test_url_application_OK.JPG" alt="Aperçu" width="1000">
 </p>
+
+
 
 
 
