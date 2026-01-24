@@ -113,7 +113,7 @@ Par contre pour la partie application **webapp**, il y a plusieurs points à mod
 
 3. Création d'un fichier *main.yml* dans le répertoire **webapp/tasks** du rôle **webapp**
   
-   ```yaml
+  ```yaml
   - name: Create application directory
     file:
       path: "{{ webapp_dir }}"
