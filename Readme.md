@@ -8,6 +8,9 @@ Ce projet consiste en deux étapes pour déployer une application à l'aide d'An
 - **Docker** installé pour la seconde partie du projet
 - Accès à un environnement cible (serveur ou machine virtuelle) où l'application sera déployée
 
+En pré-requis, j'ai construit un couple d'instances client-serveur EC2 (t3.micro + 10G de disque) avec les solutions ansible et docker déjà préinstallées (via user-data). 
+Pour que le déploiement puisse s'effectuer sans erreur entre les 2 machine, une paire de clés a été générée sur le serveur (via la commande `ssh-keygen -t rsa`) puis déployé directement sur le client (via `ssh-copy-id`).
+
 ## Partie 1 : Déploiement de l'Application avec un Playbook Simple
 
 ### Étapes à suivre
@@ -16,6 +19,67 @@ Ce projet consiste en deux étapes pour déployer une application à l'aide d'An
 2. Utiliser le playbook pour déployer l'application du client :
 3. Vérifier que l'application est disponible :
    - Utilisez un navigateur web ou une commande curl pour vérifier que l'application est accessible à l'adresse spécifiée.
+
+
+La 1ere étape a été de renseigner dans le fichier hosts_vars/client1.yml l'adresse IP de la machine client:
+`ansible_host: 172.31.20.69`
+Ensuite de préciser le user ansible dans le fichier group_vars/all.yml:
+`ansible_user: ubuntu`
+
+Les autres paramètres des différents fichiers ainsi que le playbook n'ont pas a être modifié.
+
+
+Lancement du playbook effectué avec succès:
+
+```bash
+ubuntu@ip-172-31-17-216:~/mini-projet-ansible-commun/app-init$ ansible-playbook -i hosts nginx_playbook.yaml
+[WARNING]: Deprecation warnings can be disabled by setting `deprecation_warnings=False` in ansible.cfg.
+[DEPRECATION WARNING]: DEFAULT_MANAGED_STR option. Reason: The `ansible_managed` variable can be set just like any other variable, or a different variable can be used.
+Alternatives: Set the `ansible_managed` variable, or use any custom variable in templates. This feature will be removed from ansible-core version 2.23.
+
+
+PLAY [prod] *******************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] ********************************************************************************************************************************************************************************************
+[WARNING]: Host 'client1' is using the discovered Python interpreter at '/usr/bin/python3.12', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+ok: [client1]
+
+TASK [Définir la variable nginx_root_location en fonction de la distribution] *************************************************************************************************************************************
+skipping: [client1]
+
+TASK [Définir la variable nginx_root_location pour Ubuntu] ********************************************************************************************************************************************************
+ok: [client1]
+
+TASK [Install EPEL] ***********************************************************************************************************************************************************************************************
+skipping: [client1]
+
+TASK [Install Nginx] **********************************************************************************************************************************************************************************************
+ok: [client1]
+
+TASK [Restart nginx] **********************************************************************************************************************************************************************************************
+changed: [client1]
+
+TASK [Template index.html-easter_egg.j2 to index.html on target] **************************************************************************************************************************************************
+ok: [client1]
+
+TASK [Install unzip] **********************************************************************************************************************************************************************************************
+ok: [client1]
+
+TASK [Unarchive playbook stacker game] ****************************************************************************************************************************************************************************
+ok: [client1]
+
+RUNNING HANDLER [Check HTTP Service] ******************************************************************************************************************************************************************************
+ok: [client1]
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+client1                    : ok=8    changed=1    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+
+
+<p align="center">
+  <img src="assets/test_url_application_OK.JPG" alt="Aperçu" width="500">
+</p>
+
+
 
 ## Partie 2 : Déploiement de l'Application en Conteneur avec Docker et Nginx en utilisant les rôles ansible
 
