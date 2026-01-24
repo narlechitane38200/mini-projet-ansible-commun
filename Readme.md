@@ -15,13 +15,8 @@ Pour que le déploiement puisse s'effectuer sans erreur entre les 2 machine, une
 
 ### Étapes à suivre
 
-1. **Naviguer dans le répertoire `app-init` du dépôt.**
-2. Utiliser le playbook pour déployer l'application du client :
-3. Vérifier que l'application est disponible :
-   - Utilisez un navigateur web ou une commande curl pour vérifier que l'application est accessible à l'adresse spécifiée.
 
-
-La 1ere étape a été de renseigner dans le fichier hosts_vars/client1.yml l'adresse IP de la machine client:
+La première étape a été de renseigner dans le fichier hosts_vars/client1.yml l'adresse IP de la machine client:
 `ansible_host: 172.31.20.69`
 Ensuite de préciser le user ansible dans le fichier group_vars/all.yml:
 `ansible_user: ubuntu`
@@ -29,7 +24,7 @@ Ensuite de préciser le user ansible dans le fichier group_vars/all.yml:
 Les autres paramètres des différents fichiers ainsi que le playbook n'ont pas a être modifié.
 
 
-Lancement du playbook effectué avec succès:
+##Lancement du playbook effectué avec succès:
 
 ```bash
 
@@ -71,8 +66,11 @@ PLAY RECAP *********************************************************************
 client1                    : ok=8    changed=1    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
 ```
 
+
+##Test URL de l'application OK
+
 <p align="center">
-  <img src="assets/test_url_application_OK.JPG" alt="Aperçu" width="500">
+  <img src="assets/test_url_application_OK.JPG" alt="Aperçu" width="1000">
 </p>
 
 
