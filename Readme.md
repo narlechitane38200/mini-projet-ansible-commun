@@ -32,48 +32,44 @@ Les autres paramètres des différents fichiers ainsi que le playbook n'ont pas 
 Lancement du playbook effectué avec succès:
 
 ```bash
+
 ubuntu@ip-172-31-17-216:~/mini-projet-ansible-commun/app-init$ ansible-playbook -i hosts nginx_playbook.yaml
-[WARNING]: Deprecation warnings can be disabled by setting `deprecation_warnings=False` in ansible.cfg.
-[DEPRECATION WARNING]: DEFAULT_MANAGED_STR option. Reason: The `ansible_managed` variable can be set just like any other variable, or a different variable can be used.
-Alternatives: Set the `ansible_managed` variable, or use any custom variable in templates. This feature will be removed from ansible-core version 2.23.
 
+PLAY [prod] **********************************************************************************************************
 
-PLAY [prod] *******************************************************************************************************************************************************************************************************
-
-TASK [Gathering Facts] ********************************************************************************************************************************************************************************************
-[WARNING]: Host 'client1' is using the discovered Python interpreter at '/usr/bin/python3.12', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+TASK [Gathering Facts] **********************************************************************************************************
 ok: [client1]
 
-TASK [Définir la variable nginx_root_location en fonction de la distribution] *************************************************************************************************************************************
+TASK [Définir la variable nginx_root_location en fonction de la distribution] **********************************************************************************************************
 skipping: [client1]
 
-TASK [Définir la variable nginx_root_location pour Ubuntu] ********************************************************************************************************************************************************
+TASK [Définir la variable nginx_root_location pour Ubuntu] **********************************************************************************************************
 ok: [client1]
 
-TASK [Install EPEL] ***********************************************************************************************************************************************************************************************
+TASK [Install EPEL] **********************************************************************************************************
 skipping: [client1]
 
-TASK [Install Nginx] **********************************************************************************************************************************************************************************************
+TASK [Install Nginx] **********************************************************************************************************
 ok: [client1]
 
-TASK [Restart nginx] **********************************************************************************************************************************************************************************************
+TASK [Restart nginx] **********************************************************************************************************
 changed: [client1]
 
-TASK [Template index.html-easter_egg.j2 to index.html on target] **************************************************************************************************************************************************
+TASK [Template index.html-easter_egg.j2 to index.html on target] **********************************************************************************************************
 ok: [client1]
 
-TASK [Install unzip] **********************************************************************************************************************************************************************************************
+TASK [Install unzip] **********************************************************************************************************
 ok: [client1]
 
-TASK [Unarchive playbook stacker game] ****************************************************************************************************************************************************************************
+TASK [Unarchive playbook stacker game] **********************************************************************************************************
 ok: [client1]
 
-RUNNING HANDLER [Check HTTP Service] ******************************************************************************************************************************************************************************
+RUNNING HANDLER [Check HTTP Service] **********************************************************************************************************
 ok: [client1]
 
-PLAY RECAP ********************************************************************************************************************************************************************************************************
+PLAY RECAP **********************************************************************************************************
 client1                    : ok=8    changed=1    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
-
+```
 
 <p align="center">
   <img src="assets/test_url_application_OK.JPG" alt="Aperçu" width="500">
