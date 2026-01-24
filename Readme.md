@@ -16,15 +16,15 @@ Pour que le déploiement puisse s'effectuer sans erreur entre les 2 machine, une
 ### Étapes à suivre
 
 
-La première étape a été de renseigner dans le fichier hosts_vars/client1.yml l'adresse IP de la machine client:
+La première étape a été de renseigner dans le fichier **hosts_vars/client1.yml**, l'adresse IP de la machine client:
 `ansible_host: 172.31.20.69`
-Ensuite de préciser le user ansible dans le fichier group_vars/all.yml:
+Ensuite de préciser le user ansible dans le fichier **group_vars/all.yml**:
 `ansible_user: ubuntu`
 
 Les autres paramètres des différents fichiers ainsi que le playbook n'ont pas a être modifié.
 
 
-##Lancement du playbook effectué avec succès:
+## Lancement du playbook effectué avec succès:
 
 ```bash
 
@@ -67,7 +67,7 @@ client1                    : ok=8    changed=1    unreachable=0    failed=0    s
 ```
 
 
-##Test URL de l'application OK
+## Test URL de l'application OK
 
 <p align="center">
   <img src="assets/test_url_application_OK.JPG" alt="Aperçu" width="1000">
